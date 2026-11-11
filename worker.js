@@ -26,7 +26,7 @@ export default {
         role: m.role === "assistant" ? "assistant" : "user",
         content: String(m.content || "").slice(0, 6000)
       }));
-      const base = env.AI_API_URL.replace(/\\/$/, "");
+      const base = env.AI_API_URL.endsWith("/") ? env.AI_API_URL.slice(0, -1) : env.AI_API_URL;
       const upstream = await fetch(base + "/chat/completions", {
         method: "POST",
         headers: { "Authorization": "Bearer " + env.AI_API_KEY, "Content-Type": "application/json" },
