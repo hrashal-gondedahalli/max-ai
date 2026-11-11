@@ -2,29 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MAX AI</title>
+<meta name="theme-color" content="#0b1020"><title>MAX AI</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#edf2ff;font:16px system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}
-.app{width:min(850px,100%);height:min(850px,94vh);min-height:560px;background:#111a2e;border:1px solid #293653;border-radius:24px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 70px #0006}
-header{padding:20px;display:flex;align-items:center;gap:13px;border-bottom:1px solid #293653}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#8290ff,#45d7c5);display:grid;place-items:center;color:#10172a;font-size:27px;font-weight:900}h1{margin:0;font-size:21px;letter-spacing:2px}header p{margin:3px 0 0;color:#9eacc8;font-size:13px}
-#chat{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px}.welcome{text-align:center;margin:auto;max-width:480px}.welcome .star{font-size:48px;color:#91a0ff}.welcome h2{margin:5px}.welcome p{color:#aab6ce;line-height:1.6}.msg{max-width:80%;padding:13px 16px;border-radius:17px;white-space:pre-wrap;overflow-wrap:anywhere}.user{align-self:flex-end;background:#29385e}.bot{align-self:flex-start;background:#1a2741;border:1px solid #30405f}.tag{display:block;font-size:10px;letter-spacing:1px;color:#aab6ce;margin-bottom:5px}
-form{display:flex;gap:9px;padding:14px;border-top:1px solid #293653}textarea{flex:1;resize:none;max-height:120px;border:1px solid #354462;border-radius:14px;background:#0b1325;color:#fff;padding:13px;font:inherit;outline:none}button{border:0;border-radius:13px;padding:0 17px;background:#8290ff;color:#10172a;font-weight:700;font-size:18px;cursor:pointer}.extras{display:flex;justify-content:flex-end;gap:18px;padding:0 18px 13px}.extras button{background:none;color:#aab6ce;font-size:12px;padding:4px}.note{text-align:center;color:#8190aa;font-size:11px;padding:0 10px 13px}
-@media(max-width:600px){.app{height:94vh;min-height:500px}.msg{max-width:92%}}
-</style>
-</head>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#111a2e;--line:#293653;--muted:#9eacc8;--accent:#8290ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#182748,var(--bg) 60%);color:#edf2ff;font:15px system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;padding:16px}
+.app{width:min(920px,100%);height:min(900px,94vh);min-height:540px;background:#111a2ef2;border:1px solid var(--line);border-radius:24px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 22px 80px #0008}
+header{padding:17px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#8290ff,#45d7c5);display:grid;place-items:center;color:#10172a;font-size:26px;font-weight:900}h1{margin:0;font-size:20px;letter-spacing:2px}header p{margin:3px 0 0;color:var(--muted);font-size:12px}.status{margin-left:auto;color:#9be6c2;font-size:11px;border:1px solid #32634e;padding:6px 9px;border-radius:20px}
+#chat{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px}.welcome{text-align:center;margin:auto;max-width:500px}.star{font-size:48px;color:#91a0ff}.welcome h2{margin:5px}.welcome p{color:#aab6ce;line-height:1.6}.suggestions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}.suggestions button{background:#1a2741;border:1px solid #354462;color:#dce5ff;border-radius:20px;padding:9px 12px;font-size:12px}
+.msg{max-width:82%;padding:13px 16px;border-radius:17px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}.user{align-self:flex-end;background:#29385e}.bot{align-self:flex-start;background:#1a2741;border:1px solid #30405f}.tag{display:block;font-size:10px;letter-spacing:1px;color:#aab6ce;margin-bottom:5px}.typing{color:#aab6ce;font-style:italic}
+form{display:flex;gap:8px;padding:13px;border-top:1px solid var(--line)}textarea{flex:1;resize:none;max-height:130px;border:1px solid #354462;border-radius:14px;background:#0b1325;color:#fff;padding:13px;font:inherit;outline:none}textarea:focus{border-color:var(--accent)}button{border:0;cursor:pointer;font:inherit} .send{border-radius:13px;padding:0 17px;background:var(--accent);color:#10172a;font-weight:800;font-size:19px}.tools{display:flex;justify-content:space-between;gap:10px;padding:0 16px 10px;flex-wrap:wrap}.tools div{display:flex;gap:7px;flex-wrap:wrap}.tools button{background:none;color:#b5c1d9;font-size:12px;padding:5px 8px}.tools button:hover{color:white}.note{text-align:center;color:#8190aa;font-size:10px;padding:0 10px 12px}.error{color:#ffb7b7}.busy{opacity:.65;pointer-events:none}
+@media(max-width:600px){body{padding:0}.app{height:100dvh;min-height:480px;border-radius:0;border:0}.msg{max-width:94%}.status{font-size:10px}}
+</style></head>
 <body><main class="app">
-<header><div class="logo">M</div><div><h1>MAX AI</h1><p>Your assistant for questions, learning and ideas</p></div></header>
-<section id="chat" aria-live="polite"><div class="welcome" id="welcome"><div class="star">✦</div><h2>Hello! I'm MAX.</h2><p>Type a message below. You can also use your device's microphone or ask MAX to repeat its last reply.</p></div></section>
-<div class="extras"><button type="button" id="repeat">↻ Repeat last reply</button><button type="button" id="clear">Clear conversation</button></div>
-<form id="form"><textarea id="input" rows="1" aria-label="Message MAX" placeholder="Message MAX…"></textarea><button aria-label="Send">➤</button></form>
-<div class="note">Enter to send · Shift + Enter for a new line</div>
+<header><div class="logo">M</div><div><h1>MAX AI</h1><p>Ask · Learn · Create · Explore</p></div><span class="status" id="status">Demo mode</span></header>
+<section id="chat" aria-live="polite"><div class="welcome" id="welcome"><div class="star">✦</div><h2>Welcome to MAX</h2><p>Your AI workspace for questions, learning and ideas. Start by typing, or use the microphone to speak.</p><div class="suggestions"><button data-prompt="Explain space in simple words">Explain space</button><button data-prompt="Help me learn science">Learn science</button><button data-prompt="Give me a creative project idea">Project ideas</button></div></div></section>
+<div class="tools"><div><button type="button" id="mic">🎙 Speak</button><button type="button" id="stop">■ Stop voice</button><button type="button" id="repeat">↻ Repeat answer</button></div><div><button type="button" id="clear">＋ New chat</button></div></div>
+<form id="form"><textarea id="input" rows="1" aria-label="Message MAX" placeholder="Message MAX…"></textarea><button class="send" id="send" aria-label="Send">➤</button></form><div class="note">Enter to send · Shift + Enter for a new line · Chats are saved in this browser</div>
 </main>
 <script>
-const chat=document.getElementById('chat'),input=document.getElementById('input');let lastReply='';
-function add(role,text){document.getElementById('welcome')?.remove();const box=document.createElement('div');box.className='msg '+(role==='You'?'user':'bot');const tag=document.createElement('span');tag.className='tag';tag.textContent=role;const body=document.createElement('div');body.textContent=text;box.append(tag,body);chat.append(box);chat.scrollTop=chat.scrollHeight;}
-function say(text){lastReply=text;if('speechSynthesis'in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-IN';speechSynthesis.speak(u);}}
-document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const text=input.value.trim();if(!text)return;add('You',text);input.value='';const answer='Thanks for your message! The MAX website is running, but its AI answer engine has not been connected yet. A secure server and AI API connection are needed before MAX can generate answers like ChatGPT. Please do not put an API key in this webpage.';add('MAX',answer);say(answer);});
-document.getElementById('repeat').addEventListener('click',()=>{if(lastReply)say(lastReply);else say('There is no reply to repeat yet.');});
-document.getElementById('clear').addEventListener('click',()=>{chat.innerHTML='<div class="welcome" id="welcome"><div class="star">✦</div><h2>Hello! I\'m MAX.</h2><p>Type a message below. You can also use your device\'s microphone or ask MAX to repeat its last reply.</p></div>';lastReply='';speechSynthesis?.cancel();});
-input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();document.getElementById('form').requestSubmit();}});
+/* Set this to your deployed secure Worker URL after backend setup. Never put an API key here. */
+const API_URL = "";
+const chat=document.getElementById('chat'),input=document.getElementById('input'),statusEl=document.getElementById('status');
+let messages=[],lastReply='',busy=false,recognition=null;
+try{messages=JSON.parse(localStorage.getItem('max-chat-history')||'[]')}catch{messages=[]}
+function save(){try{localStorage.setItem('max-chat-history',JSON.stringify(messages.slice(-60)))}catch{}}
+function add(role,text,saveIt=true){document.getElementById('welcome')?.remove();const box=document.createElement('div');box.className='msg '+(role==='You'?'user':'bot');const tag=document.createElement('span');tag.className='tag';tag.textContent=role;const body=document.createElement('div');body.textContent=text;box.append(tag,body);chat.append(box);chat.scrollTop=chat.scrollHeight;if(saveIt){messages.push({role:role==='You'?'user':'assistant',content:text});save()}}
+function render(){if(!messages.length)return;document.getElementById('welcome')?.remove();for(const m of messages){const box=document.createElement('div');box.className='msg '+(m.role==='user'?'user':'bot');const tag=document.createElement('span');tag.className='tag';tag.textContent=m.role==='user'?'You':'MAX';const body=document.createElement('div');body.textContent=m.content;box.append(tag,body);chat.append(box);if(m.role==='assistant')lastReply=m.content}chat.scrollTop=chat.scrollHeight}
+function speak(text){lastReply=text;if(!('speechSynthesis'in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-IN';speechSynthesis.speak(u)}
+async function send(text){if(!text||busy)return;add('You',text);input.value='';busy=true;document.getElementById('send').classList.add('busy');const wait=document.createElement('div');wait.className='msg bot typing';wait.textContent='MAX is thinking…';chat.append(wait);chat.scrollTop=chat.scrollHeight;
+try{if(!API_URL){throw new Error('MAX is in demo mode. Its secure AI server has not been connected yet. The chat interface, voice input and read-aloud controls are ready; the backend must be deployed before real AI answers work.');}
+const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:messages.slice(-20)})});if(!response.ok)throw new Error('The AI server returned an error ('+response.status+').');const data=await response.json();const answer=String(data.reply||'I could not create a reply. Please try again.');wait.remove();add('MAX',answer);speak(answer);
+}catch(err){wait.remove();const message=err.message||'Something went wrong.';add('MAX',message); }finally{busy=false;document.getElementById('send').classList.remove('busy')}}
+document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();send(input.value.trim())});
+input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();document.getElementById('form').requestSubmit()}});
+document.getElementById('repeat').onclick=()=>lastReply?speak(lastReply):speak('There is no answer to repeat yet.');
+document.getElementById('stop').onclick=()=>{if('speechSynthesis'in window)speechSynthesis.cancel()};
+document.getElementById('clear').onclick=()=>{messages=[];lastReply='';save();speechSynthesis?.cancel();chat.innerHTML='<div class="welcome" id="welcome"><div class="star">✦</div><h2>Welcome to MAX</h2><p>Your AI workspace for questions, learning and ideas. Start by typing, or use the microphone to speak.</p></div>'};
+document.querySelectorAll('[data-prompt]').forEach(b=>b.onclick=()=>send(b.dataset.prompt));
+const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(SpeechRecognition){recognition=new SpeechRecognition();recognition.lang='en-IN';recognition.interimResults=false;recognition.onresult=e=>{input.value=e.results[0][0].transcript;input.focus()};recognition.onerror=()=>{statusEl.textContent='Mic unavailable'};document.getElementById('mic').onclick=()=>{try{recognition.start();statusEl.textContent='Listening…'}catch{}};recognition.onend=()=>statusEl.textContent=API_URL?'AI connected':'Demo mode'}else{document.getElementById('mic').onclick=()=>alert('Voice input is not supported in this browser. Try Chrome and allow microphone access.')}
+if(API_URL)statusEl.textContent='AI enabled';render();
 </script></body></html>
